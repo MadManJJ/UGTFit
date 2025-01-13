@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 function WorkoutForm() {
+  const { dispatch } = useWorkoutsContext();
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
@@ -10,7 +12,7 @@ function WorkoutForm() {
     e.preventDefault(); // stop refreshing the page
 
     const workout = { title, load, reps };
-
+    // create new workout
     const response = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(workout),
@@ -29,6 +31,7 @@ function WorkoutForm() {
       setReps("");
       setError(null);
       console.log("new workot added", json);
+      dispatch({type: 'CREATE_WORKOUT', payload: json})
     }
   };
 
