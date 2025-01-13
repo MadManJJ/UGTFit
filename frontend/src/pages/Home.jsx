@@ -18,7 +18,7 @@ function Home() {
     };
 
     fetchWorkouts();
-  }, []); // run only one (when the component first render) []
+  }, [dispatch]); // run only one (when the component first render) []
 
   return (
     <div className="home">
