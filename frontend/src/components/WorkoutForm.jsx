@@ -11,8 +11,8 @@ function WorkoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // stop refreshing the page
-
-    const workout = { title, load, reps };
+    let userId = "678660506486469ff6d592c6";
+    const workout = { title, load, reps, userId };
     console.log("checking")
     // create new workout
     const response = await fetch("/api/workouts", {
@@ -23,7 +23,7 @@ function WorkoutForm() {
       },
     });
     const json = await response.json(); // do this because our backend res.status(200).json(workout) mean it return a json
-
+    console.log("checking2")
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
@@ -35,7 +35,7 @@ function WorkoutForm() {
       setError(null);
       setEmptyFields([]);
       console.log("new workot added", json);
-      dispatch({type: 'CREATE_WORKOUT', payload: json})
+      dispatch({type: 'CREATE_WORKOUT', payload: json.workout})
     }
   };
 

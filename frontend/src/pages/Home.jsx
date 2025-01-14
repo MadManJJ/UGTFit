@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+import  SortingOptions  from "../components/SortingOptions";
 
 // components
 import WorkoutDetails from "../components/WorkoutDetails";
@@ -7,6 +8,14 @@ import WorkoutForm from "../components/WorkoutForm";
 
 function Home() {
   const { workouts, dispatch } = useWorkoutsContext();
+
+  const handleSort = async (field, order) => {
+    const response = await fetch(`/api/workouts?sortBy=${field}&order=${order}`);
+    const json = await response.json();
+    if (response.ok) {
+      dispatch({ type: "SET_WORKOUTS", payload: json });
+    }
+  };
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -28,7 +37,9 @@ function Home() {
             <WorkoutDetails key={workout._id} workout={workout} />
           ))}
       </div>
+      <SortingOptions onSortChange={handleSort}/>
       <WorkoutForm />
+
     </div>
   );
 }

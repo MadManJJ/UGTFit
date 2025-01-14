@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 
 // get all workouts
 const getWorkouts = async (req, res) => {
-  const workouts = await Workout.find({}).sort({ createdAt: -1 });
+  const { sortBy = 'createdAt', order = 'desc' } = req.query;
+  const sortOrder = order === 'asc' ? 1 : -1;
+  const sortQuery = { [sortBy]: sortOrder };
+  
+  const workouts = await Workout.find({}).sort(sortQuery);
 
   res.status(200).json(workouts);
 };
@@ -28,6 +32,7 @@ const get1Workout = async (req, res) => {
 
 // create new workout
 const createWorkout = async (req, res) => {
+  console.log("TEST")
   const { title, load, reps, userId, imageUrl } = req.body;
 
   let emptyFields = [];
