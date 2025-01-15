@@ -37,7 +37,9 @@ function Home() {
             <WorkoutDetails key={workout._id} workout={workout} />
           ))}
       </div>
+      <div className="sorting">
       <SortingOptions onSortChange={handleSort}/>
+      </div>
       <WorkoutForm />
 
     </div>

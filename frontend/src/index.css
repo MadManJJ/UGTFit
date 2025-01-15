@@ -8,6 +8,9 @@
   --primary-dark: #1a83ff;
   --primary-rgb: 26, 168, 131;
 }
+*{
+  box-sizing: border-box;
+}
 body {
   background: #f1f1f1;
   margin: 0;
@@ -24,21 +27,37 @@ header .container {
   align-items: center;
   justify-content: space-between;
 }
+
+header .container ul {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+.WorkoutBuddy{
+  margin-right: auto;
+}
+
+header .container ul li{
+  display: flex;
+}
 header a {
+  display: flex;
+  padding: 1em 4em 1em 0em;
   color: #333;
   text-decoration: none;
 }
 .pages {
   max-width: 1400px;
-  padding: 20px;
+  padding: 1rem;
   margin: 0 auto;
 }
 
 /* homepage */
 .home {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  grid-template-columns: 2fr 1.5fr;
+  gap: 2.5rem;
 }
 .workout-details {
   background: #fff;
@@ -108,12 +127,16 @@ input.error {
 }
 
 /* Sorting options container */
+.sorting{
+  /* background-color: red; */
+}
+
 .sorting-options {
+  width: fit-content;
   display: flex;
   gap: 1rem;
   padding: 1rem;
   background: #f8f9fa;
-  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin: 1rem 0;
   align-items: center;
