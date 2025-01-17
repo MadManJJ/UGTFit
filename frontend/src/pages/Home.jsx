@@ -38,7 +38,7 @@ function Home() {
           ))}
       </div>
       <div className="sorting">
-      <SortingOptions onSortChange={handleSort}/>
+        <SortingOptions onSortChange={handleSort}/>
       </div>
       <WorkoutForm />
 

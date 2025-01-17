@@ -3,48 +3,76 @@
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  --bg-color: #0d0d0d;
+  --text-color: #ffffff;
+  --border: #cfc8c8;
+  --primary: #088ff6;
   --error: #e7195a;
   --primary-dark: #1a83ff;
   --primary-rgb: 26, 168, 131;
 }
-*{
+* {
   box-sizing: border-box;
 }
-body {
-  background: #f1f1f1;
-  margin: 0;
-  font-family: "Poppins";
+h2 {
+  font-weight: 400;
 }
+h4 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+body {
+  background: var(--bg-color);
+  margin: 0;
+  font-family: "Poppins", serif;
+  width: 100vw;
+  height: 100vh;
+  color: var(--text-color);
+}
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+}
+
 header {
-  background: #fff;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
 }
 header .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 10px 20px;
+  padding: 5px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 header .container ul {
+  margin: 0;
+  padding: 0;
   width: 100%;
   list-style: none;
   display: flex;
   align-items: center;
 }
-.WorkoutBuddy{
+.WorkoutBuddy {
   margin-right: auto;
 }
 
-header .container ul li{
+header .container ul li {
   display: flex;
 }
 header a {
   display: flex;
   padding: 1em 4em 1em 0em;
-  color: #333;
+  color: var(--border);
   text-decoration: none;
 }
 .pages {
@@ -60,7 +88,7 @@ header a {
   gap: 2.5rem;
 }
 .workout-details {
-  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 4px;
   margin: 20px auto;
   padding: 20px;
@@ -69,23 +97,22 @@ header a {
 }
 .workout-details h4 {
   margin: 0 0 10px 0;
-  font-size: 1.2em;
-  color: var(--primary);
+  color: var(--text-color);
 }
 .workout-details p {
   margin: 0;
   font-size: 0.9em;
-  color: #555;
+  color: #d6d0d0;
 }
 .workout-details span {
   position: absolute;
   top: 20px;
   right: 20px;
   cursor: pointer;
-  background: #f1f1f1;
+  background: #272626;
   padding: 6px;
   border-radius: 50%;
-  color: #333;
+  color: #ffffff;
 }
 /* new workout form */
 label,
@@ -127,8 +154,7 @@ input.error {
 }
 
 /* Sorting options container */
-.sorting{
-  /* background-color: red; */
+.sorting {
 }
 
 .sorting-options {
@@ -136,7 +162,7 @@ input.error {
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  background: #f8f9fa;
+  background: #010101;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin: 1rem 0;
   align-items: center;
@@ -153,11 +179,12 @@ input.error {
   font-family: "Poppins";
   padding: 0.5rem;
   border: 2px solid #e1e1e1;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 120px;
+  color: white;
 }
 
 .sort-select:hover,
@@ -193,4 +220,144 @@ input.error {
 .sort-button:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+/* .workouts {
+  width: 100%;
+  height: 60dvh;
+  overflow-y: auto;
+} */
+.pages {
+  /* background-color: blue; */
+  width: 100%;
+}
+
+.login-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* margin: auto; */
+  width: 410px;
+  padding: 2rem 1.5rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.login-container .form-title {
+  color: #6652be;
+  text-align: center;
+  font-size: 1.37rem;
+  font-weight: 600;
+  margin-bottom: 1.87rem;
+}
+
+.login-container .separator {
+  position: relative;
+  margin: 1.5rem 0;
+  text-align: center;
+  background: #fff;
+}
+.login-container .separator span {
+  z-index: 1;
+  font-weight: 500;
+  color: #6652be;
+  position: relative;
+  background: #fff;
+  font-size: 1.06rem;
+  padding: 0 0.9rem;
+}
+.login-container .separator::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  width: 100%;
+  background: #bfb3f2;
+}
+.login-form .input-wrapper {
+  height: 54px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.login-form .input-field {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 1.06rem;
+  border-radius: 0.31rem;
+  border: 1px solid #bfb3f2;
+  padding: 0px 1.25rem 0 3.12rem;
+  transition: 0.2s ease;
+}
+.login-form .input-field:focus {
+  border-color: #5f41e4;
+}
+.login-form .input-field::placeholder {
+  color: #9284c8;
+}
+.login-form .input-wrapper i {
+  position: absolute;
+  top: 50%;
+  height: 100%;
+  display: flex;
+  color: #a395e0;
+  align-items: center;
+  transform: translateY(-50%);
+  transition: 0.2s ease;
+}
+.login-form .input-wrapper i:not(.eye-icon) {
+  left: 0.93rem;
+  pointer-events: none;
+}
+.login-form .input-field:focus ~ i:not(.eye-icon) {
+  color: #5f41e4;
+}
+.login-form .input-wrapper i.eye-icon {
+  display: none;
+  right: 0.93rem;
+  color: #917de8;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+.login-form .input-wrapper .input-field:valid ~ .eye-icon {
+  display: flex;
+}
+.login-form .forgot-password-link {
+  display: block;
+  width: fit-content;
+  margin-top: -0.44rem;
+}
+.login-form .login-button {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 54px;
+  color: #fff;
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 2.19rem;
+  border-radius: 0.31rem;
+  background: #5f41e4;
+  transition: 0.3s ease;
+}
+.login-form .login-button:hover {
+  background: #4320df;
+}
+.login-container .signup-prompt {
+  text-align: center;
+  font-size: 1.06rem;
+  font-weight: 500;
+  margin: 1.75rem 0 0.31rem;
+}
+.login-container a {
+  color: #5f41e4;
+  font-weight: 500;
+  text-decoration: none;
+}
+.login-container a:hover {
+  text-decoration: underline;
 }

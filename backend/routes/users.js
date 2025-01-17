@@ -3,7 +3,7 @@ const {
   createUser,
   login,
   logout,
-  getWorkouts,
+  // getWorkouts,
   authMiddleware
 } = require("../controllers/userController.js");
 
@@ -21,6 +21,6 @@ router.post("/login", login);
 router.get("/logout", logout);
 
 // GET workout from userID
-router.get("/:id/workouts", authMiddleware, getWorkouts);
+// router.get("/:id/workouts", authMiddleware, getWorkouts);
 
 module.exports = router;

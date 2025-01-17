@@ -7,7 +7,7 @@ function Navbar() {
         <ul>
           <li className="WorkoutBuddy">
             <Link to="/">
-              <h1>Workout Buddy</h1>
+              <h2>Workout Buddy</h2>
             </Link>
           </li>
           <li>
@@ -21,8 +21,8 @@ function Navbar() {
             </Link>
           </li>
           <li>
-            <Link to="/">
-              <h2>Home</h2>
+            <Link to="/login">
+              <h2>Login</h2>
             </Link>
           </li>
         </ul>

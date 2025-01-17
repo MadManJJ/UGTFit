@@ -54,7 +54,7 @@ const login = async (req, res) => {
     }
     const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: "1h" });
     res.cookie("token", token, { httpOnly: true, secure: true });
-    return res.status(200).json({ message: "Login successful", user });
+    return res.status(200).json({ message: "Login successful", user, redirectUrl: "/dashboard"  });
   } catch (error) {
     console.log(error);
   }
@@ -66,22 +66,22 @@ const logout = async (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 };
 
-const getWorkouts =  async (req, res) => {
-  const { id } = req.params;  // Get userId from URL params
+// const getWorkouts =  async (req, res) => {
+//   const { id } = req.params;  // Get userId from URL params
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Invalid user ID" });
-  }
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     return res.status(404).json({ error: "Invalid user ID" });
+//   }
 
-  const workouts = await Workout.find({ userId: id }).sort({ createdAt: -1 });
-  res.status(200).json(workouts);
-};
+//   const workouts = await Workout.find({ userId: id }).sort({ createdAt: -1 });
+//   res.status(200).json(workouts);
+// };
 
 
 module.exports = {
   createUser,
   login,
   logout,
-  getWorkouts,
+  // getWorkouts,
   authMiddleware
 };

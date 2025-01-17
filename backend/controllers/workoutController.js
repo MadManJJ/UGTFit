@@ -30,6 +30,23 @@ const get1Workout = async (req, res) => {
   res.status(200).json(workout);
 };
 
+const getWorkoutByUserId = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    // Find all workouts with the matching userId
+    const workouts = await Workout.find({ userId });
+
+    if (!workouts || workouts.length === 0) {
+      return res.status(404).json({ message: "No workouts found for this user." });
+    }
+
+    res.status(200).json(workouts);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving workouts.", error: error.message });
+  }
+};
+
 // create new workout
 const createWorkout = async (req, res) => {
   console.log("TEST")
@@ -104,4 +121,5 @@ module.exports = {
   get1Workout,
   deleteWorkout,
   updateWorkout,
+  getWorkoutByUserId
 };
