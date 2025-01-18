@@ -4,7 +4,7 @@ const {
   login,
   logout,
   // getWorkouts,
-  authMiddleware
+  authMiddleware,
 } = require("../controllers/userController.js");
 
 const router = express.Router();

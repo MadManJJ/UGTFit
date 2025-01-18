@@ -23,22 +23,27 @@ const authMiddleware = (req, res, next) => {
 
 // POST Create User // Register
 const createUser = async (req, res) => {
-    const { email, password } = req.body;
-    const hashPassword = await bcrypt.hash(password, 10);
-    if (!email.endsWith("@gmail.com")) {
-      return res.status(403).json({ message: "Access denied: Unauthorized email domain." });
-    }       
-    try {
-      // User is another model (schema) like post
-      const user = await User.create({ email, password: hashPassword });
-      return res.status(201).json({ message: "User Created", user });
-    } catch (error) {
-      if (error.code === 11000) {
-        return res.status(409).json({ message: "User already in use" });
-      }
-      return res.status(500).json({ message: "Internal server error" });
-    }    
-}
+  const { email, password } = req.body;
+  const hashPassword = await bcrypt.hash(password, 10);
+  if (!email.endsWith("@gmail.com")) {
+    return res
+      .status(403)
+      .json({ message: "Access denied: Unauthorized email domain." });
+  }
+  try {
+    // User is another model (schema) like post
+    const user = await User.create({ email, password: hashPassword });
+    return res.status(201).json({ message: "User Created", user });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({
+        message: "User already in use",
+        redirectUrl: "/api/users/login",
+      });
+    }
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 // POST Login // Check Login
 const login = async (req, res) => {
@@ -52,11 +57,15 @@ const login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user._id }, jwtSecret, {
+      expiresIn: "1h",
+    });
     res.cookie("token", token, { httpOnly: true, secure: true });
-    return res.status(200).json({ message: "Login successful", user, redirectUrl: "/dashboard"  });
+    return res
+      .status(200)
+      .json({ message: "Login successful", user, redirectUrl: "/dashboard" });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -77,11 +86,10 @@ const logout = async (req, res) => {
 //   res.status(200).json(workouts);
 // };
 
-
 module.exports = {
   createUser,
   login,
   logout,
   // getWorkouts,
-  authMiddleware
+  authMiddleware,
 };

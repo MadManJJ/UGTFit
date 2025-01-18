@@ -1,35 +1,109 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage2.module.css";
 
 const LoginPage2 = () => {
+  const navigate = useNavigate();
+
   const containerRef = useRef(null);
   const registerBtnRef = useRef(null);
   const loginBtnRef = useRef(null);
+
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const [registerError, setRegisterError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   useEffect(() => {
     const container = containerRef.current;
     const registerBtn = registerBtnRef.current;
     const loginBtn = loginBtnRef.current;
 
-    const handleRegisterClick = () => container.classList.add(styles.active);
-    const handleLoginClick = () => container.classList.remove(styles.active);
+    const handleRegisterToggle = () => container.classList.add(styles.active);
+    const handleLoginToggle = () => container.classList.remove(styles.active);
 
-    registerBtn.addEventListener("click", handleRegisterClick);
-    loginBtn.addEventListener("click", handleLoginClick);
+    registerBtn.addEventListener("click", handleRegisterToggle);
+    loginBtn.addEventListener("click", handleLoginToggle);
 
-    // Cleanup to avoid memory leaks
     return () => {
-      registerBtn.removeEventListener("click", handleRegisterClick);
-      loginBtn.removeEventListener("click", handleLoginClick);
+      registerBtn.removeEventListener("click", handleRegisterToggle);
+      loginBtn.removeEventListener("click", handleLoginToggle);
     };
   }, []);
 
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log("Registration successful");
+        console.log(data.message);
+        setRegisterEmail("");
+        setRegisterPassword("");
+        setRegisterError("");
+        window.location.reload();
+      } else {
+        console.log("Registration failed");
+        console.log(data.message);
+        setRegisterError(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data.user._id);
+        console.log("Login successful");
+        console.log(data.message);
+        setLoginEmail("");
+        setLoginPassword("");
+        setLoginError("");
+        navigate(`/dashboard/${data.user._id}`);
+      } else {
+        console.log("Login failed");
+        console.log(data.message);
+        setLoginError(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.container} ref={containerRef}>
+      {/* Sign Up Form */}
       <div className={`${styles["form-container"]} ${styles["sign-up"]}`}>
-        <form>
+        <form onSubmit={handleRegisterSubmit}>
           <h1>Create Account</h1>
-          <div className={styles["social-icons"]}>
+          {/* <div className={styles["social-icons"]}>
             <a href="#" className={styles.icon}>
               <i className="fab fa-google-plus-g"></i>
             </a>
@@ -42,19 +116,30 @@ const LoginPage2 = () => {
             <a href="#" className={styles.icon}>
               <i className="fab fa-linkedin-in"></i>
             </a>
-          </div>
-          <span>or use your email for registration</span>
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <button type="button">Sign Up</button>
+          </div> */}
+          {/* <span>or use your email for registration</span> */}
+          <input
+            type="email"
+            placeholder="Email"
+            value={registerEmail}
+            onChange={(e) => setRegisterEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={registerPassword}
+            onChange={(e) => setRegisterPassword(e.target.value)}
+          />
+          {registerError && <div className={styles.error}>{registerError}</div>}
+          <button type="submit">Sign Up</button>
         </form>
       </div>
 
+      {/* Sign In Form */}
       <div className={`${styles["form-container"]} ${styles["sign-in"]}`}>
-        <form>
+        <form onSubmit={handleLoginSubmit}>
           <h1>Sign In</h1>
-          <div className={styles["social-icons"]}>
+          {/* <div className={styles["social-icons"]}>
             <a href="#" className={styles.icon}>
               <i className="fab fa-google-plus-g"></i>
             </a>
@@ -67,15 +152,27 @@ const LoginPage2 = () => {
             <a href="#" className={styles.icon}>
               <i className="fab fa-linkedin-in"></i>
             </a>
-          </div>
-          <span>or use your email password</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          </div> */}
+          {/* <span>or use your email password</span> */}
+          <input
+            type="email"
+            placeholder="Email"
+            value={loginEmail}
+            onChange={(e) => setLoginEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+          />
+          {loginError && <div className={styles.error}>{loginError}</div>}
           <a href="#">Forgot Your Password?</a>
-          <button type="button">Sign In</button>
+          <button type="submit">Sign In</button>
         </form>
       </div>
 
+      {/* Toggle Panel */}
       <div className={styles["toggle-container"]}>
         <div className={styles.toggle}>
           <div className={`${styles["toggle-panel"]} ${styles["toggle-left"]}`}>

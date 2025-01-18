@@ -8,13 +8,12 @@ function InnerApp() {
   return (
     <>
       {location.pathname !== "/login" && <Navbar />}
-      <div className="pages">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage2 />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-        </Routes>
-      </div>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage2 />} />
+        <Route path="/dashboard/:userId" element={<DashboardPage />} />
+      </Routes>
     </>
   );
 }

@@ -11,9 +11,9 @@ function WorkoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // stop refreshing the page
-    let userId = "678660506486469ff6d592c6";
+    let userId = "678a7816b4c4c70aa610e641";
     const workout = { title, load, reps, userId };
-    console.log("checking")
+    console.log("checking");
     // create new workout
     const response = await fetch("/api/workouts", {
       method: "POST",
@@ -23,7 +23,7 @@ function WorkoutForm() {
       },
     });
     const json = await response.json(); // do this because our backend res.status(200).json(workout) mean it return a json
-    console.log("checking2")
+    console.log("checking2");
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
@@ -35,7 +35,7 @@ function WorkoutForm() {
       setError(null);
       setEmptyFields([]);
       console.log("new workot added", json);
-      dispatch({type: 'CREATE_WORKOUT', payload: json.workout})
+      dispatch({ type: "CREATE_WORKOUT", payload: json.workout });
     }
   };
 
@@ -48,7 +48,7 @@ function WorkoutForm() {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        className={emptyFields.includes("title") ? 'error' : ''}
+        className={emptyFields.includes("title") ? "error" : ""}
       />
 
       <label>Load (in kg): </label>
@@ -56,7 +56,7 @@ function WorkoutForm() {
         type="number"
         onChange={(e) => setLoad(e.target.value)}
         value={load}
-        className={emptyFields.includes("load") ? 'error' : ''}
+        className={emptyFields.includes("load") ? "error" : ""}
       />
 
       <label>Reps: </label>
@@ -64,7 +64,7 @@ function WorkoutForm() {
         type="number"
         onChange={(e) => setReps(e.target.value)}
         value={reps}
-        className={emptyFields.includes("reps") ? 'error' : ''}
+        className={emptyFields.includes("reps") ? "error" : ""}
       />
       <button>Add Workout</button>
       {error && <div className="error">{error}</div>}

@@ -5,7 +5,8 @@ const {
   get1Workout,
   deleteWorkout,
   updateWorkout,
-  getWorkoutByUserId
+  getWorkoutByUserId,
+  authMiddleware,
 } = require("../controllers/workoutController");
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router.get("/", getWorkouts);
 router.get("/:id", get1Workout);
 
 // GET workouts by userId : call at /api/workouts/user/:userId
-router.get("/user/:userId", getWorkoutByUserId);
+router.get("/user/:userId", authMiddleware, getWorkoutByUserId);
 
 // POST a new workout : call at /api/workouts/
 router.post("/", createWorkout);

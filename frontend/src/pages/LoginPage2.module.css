@@ -1,18 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
+:root {
+  --bg-color: #0d0d0d;
+  --text-color: #ffffff;
+  --border: #cfc8c8;
+  --primary: #088ff6;
+  --error: #e7195a;
+  --primary-dark: #1a83ff;
+  --primary-rgb: 26, 168, 131;
+  --linear: linear-gradient(to right, #ffffff, #aba3a3);
+}
 
 .container {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
-  background-color: #fff;
-  border-radius: 30px;
+  background-color: var(--bg-color);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
   position: relative;
   overflow: hidden;
-  width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  width: 100vw;
+  height: 100vh;
 }
 
 .container p {
@@ -27,15 +36,15 @@
 }
 
 .container a {
-  color: #333;
+  color: var(--text-color);
   font-size: 13px;
   text-decoration: none;
   margin: 15px 0 10px;
 }
 
 .container button {
-  background-color: #512da8;
-  color: #fff;
+  background-color: var(--primary);
+  color: var(--text-color);
   font-size: 12px;
   padding: 10px 45px;
   border: 1px solid transparent;
@@ -45,25 +54,42 @@
   text-transform: uppercase;
   margin-top: 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.container button:hover {
+  background-color: transparent;
+  border: 1px solid var(--primary);
 }
 
 .container button.hidden {
+  font-family: "Montserrat", sans-serif;
   background-color: transparent;
-  border-color: #fff;
+  border-color: var(--bg-color);
+  color: var(--bg-color);
+  transition: all 0.3s ease;
+}
+
+.container button.hidden:hover {
+  border: unset;
+  background-color: var(--primary);
+  color: var(--text-color);
 }
 
 .container form {
-  background-color: #fff;
+  background-color: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 40px;
+  margin: 0 auto;
+  padding: 0 2em;
+  max-width: 25em;
   height: 100%;
 }
 
 .container input {
-  background-color: #eee;
+  background-color: var(--text-color);
   border: none;
   margin: 8px 0;
   padding: 10px 15px;
@@ -122,7 +148,7 @@
 }
 
 .social-icons a {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 20%;
   display: inline-flex;
   justify-content: center;
@@ -140,7 +166,7 @@
   height: 100%;
   overflow: hidden;
   transition: all 0.6s ease-in-out;
-  border-radius: 150px 0 0 100px;
+  border-radius: 75px 0 0 50px;
   z-index: 1000;
 }
 
@@ -150,10 +176,10 @@
 }
 
 .toggle {
-  background-color: #512da8;
+  background-color: var(--primary);
   height: 100%;
-  background: linear-gradient(to right, #5c6bc0, #512da8);
-  color: #fff;
+  background: var(--linear);
+  color: var(--bg-color);
   position: relative;
   left: -100%;
   height: 100%;
@@ -200,5 +226,10 @@
 
 form h1,
 form span {
-  color: black;
+  color: var(--text-color);
+}
+
+.error {
+  color: red;
+  padding: 0.5em;
 }

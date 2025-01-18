@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const workoutRoutes = require("./routes/workouts");
 const userRoutes = require("./routes/users");
 
@@ -12,6 +13,7 @@ const app = express();
 
 // do when every req is come in
 // middleware (.use)
+app.use(cookieParser());
 app.use(express.json()); // give access to req.body
 app.use((req, res, next) => {
   console.log(req.path, req.method);

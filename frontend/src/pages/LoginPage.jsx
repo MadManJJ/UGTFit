@@ -1,4 +1,3 @@
-import styles from "./LoginPageStyles.module.css";
 import InputField from "../components/InputField";
 
 function LoginPage() {
