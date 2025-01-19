@@ -17,7 +17,7 @@ if (environment === "production") {
   // Production environment (adjust this to your actual production domain)
   app.use(
     cors({
-      origin: "https://yourfrontenddomain.com", // Replace with your actual production frontend URL
+      origin: "https://ubefit.netlify.app", // Replace with your actual production frontend URL
       credentials: true, // Include cookies if required
     })
   );
