@@ -1,4 +1,5 @@
 const Workout = require("../models/workoutModel");
+const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -54,22 +55,29 @@ const get1Workout = async (req, res) => {
 
 const getWorkoutByUserId = async (req, res) => {
   const { userId } = req.params;
-  console.log(userId);
   const { sortBy = "createdAt", order = "desc" } = req.query;
   const sortOrder = order === "asc" ? 1 : -1;
   const sortQuery = { [sortBy]: sortOrder };
 
   try {
+    // Check if the userId exists in the Users collection
+    const userExists = await User.findById(userId);
+    if (!userExists) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     // Find all workouts with the matching userId
     const workouts = await Workout.find({ userId }).sort(sortQuery);
 
-    if (!workouts || workouts.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No workouts found for this user." });
-    }
-
-    res.status(200).json(workouts);
+    // Even if no workouts are found, return a 200 response with an empty array
+    return res.status(200).json({
+      message: "Workouts retrieved successfully",
+      user: {
+        id: userExists._id,
+        name: userExists.name, // Include additional user details if needed
+      },
+      workouts: workouts || [],
+    });
   } catch (error) {
     res
       .status(500)
@@ -153,6 +161,76 @@ const updateWorkout = async (req, res) => {
   res.status(200).json(workout);
 };
 
+const getWorkoutsByReps = async (req, res) => {
+  try {
+    const rankings = await Workout.aggregate([
+      {
+        $group: {
+          _id: "$userId", // Group by userId
+          totalReps: { $sum: "$reps" }, // Sum all reps for each user
+        },
+      },
+      {
+        $sort: { totalReps: -1 }, // Sort by totalReps in descending order
+      },
+      {
+        $lookup: {
+          // Join with the user collection to get user email
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $project: {
+          // Return only the necessary fields
+          totalReps: 1,
+          user: { $arrayElemAt: ["$user.email", 0] }, // Extract the first user email
+        },
+      },
+    ]);
+    res.status(200).json(rankings);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching reps rankings", error });
+  }
+};
+
+const getWorkoutsByLoad = async (req, res) => {
+  try {
+    const rankings = await Workout.aggregate([
+      {
+        $group: {
+          _id: "$userId", // Group by userId
+          totalLoad: { $sum: "$load" }, // Sum all loads for each user
+        },
+      },
+      {
+        $sort: { totalLoad: -1 }, // Sort by totalLoad in descending order
+      },
+      {
+        $lookup: {
+          // Join with the user collection to get user email
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $project: {
+          // Return only the necessary fields
+          totalLoad: 1,
+          user: { $arrayElemAt: ["$user.email", 0] }, // Extract the first user email
+        },
+      },
+    ]);
+    res.status(200).json(rankings);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching load rankings", error });
+  }
+};
+
 module.exports = {
   createWorkout,
   getWorkouts,
@@ -161,4 +239,6 @@ module.exports = {
   updateWorkout,
   getWorkoutByUserId,
   authMiddleware,
+  getWorkoutsByReps,
+  getWorkoutsByLoad,
 };

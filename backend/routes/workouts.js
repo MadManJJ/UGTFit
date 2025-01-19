@@ -7,6 +7,8 @@ const {
   updateWorkout,
   getWorkoutByUserId,
   authMiddleware,
+  getWorkoutsByReps,
+  getWorkoutsByLoad,
 } = require("../controllers/workoutController");
 
 const router = express.Router();
@@ -30,5 +32,10 @@ router.delete("/:id", deleteWorkout);
 
 // UPDATE a workout
 router.patch("/:id", updateWorkout);
+
+// GET workouts by reps : call at /api/workouts/ranking/reps
+router.get("/ranking/reps", getWorkoutsByReps);
+
+router.get("/ranking/load", getWorkoutsByLoad);
 
 module.exports = router;

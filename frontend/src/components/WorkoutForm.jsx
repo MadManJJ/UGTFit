@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
-function WorkoutForm() {
+function WorkoutForm({ userId }) {
   const { dispatch } = useWorkoutsContext();
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
@@ -11,7 +11,7 @@ function WorkoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // stop refreshing the page
-    let userId = "678a7816b4c4c70aa610e641";
+
     const workout = { title, load, reps, userId };
     console.log("checking");
     // create new workout

@@ -3,7 +3,12 @@ import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 // data fns
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-function WorkoutDetail({ workout, haveDelete }) {
+function WorkoutDetail({
+  workout,
+  haveDelete,
+  haveCreateBy = false,
+  userId = "",
+}) {
   const { dispatch } = useWorkoutsContext();
 
   const handleClick = async () => {
@@ -16,10 +21,11 @@ function WorkoutDetail({ workout, haveDelete }) {
       dispatch({ type: "DELETE_WORKOUT", payload: json });
     }
   };
-
+  if (haveCreateBy) {
+  }
   return (
     <div className="workout-details">
-      <h4>{workout.title}</h4>
+      <h4>{workout.title} </h4>
       <p>
         <strong>Load (kg): </strong>
         {workout.load}
@@ -30,8 +36,16 @@ function WorkoutDetail({ workout, haveDelete }) {
       </p>
       <p>{new Date(workout.createdAt).toDateString()}</p>
       <p>
-        {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
+        {formatDistanceToNow(new Date(workout.createdAt), {
+          addSuffix: true,
+        })}
       </p>
+      {haveCreateBy && (
+        <span>
+          <strong>Created by: </strong>
+          {userId}
+        </span>
+      )}
       {haveDelete && (
         <span className="material-symbols-outlined" onClick={handleClick}>
           delete

@@ -4,7 +4,6 @@ import SortingOptions from "../components/SortingOptions";
 
 // components
 import WorkoutDetails from "../components/WorkoutDetails";
-import WorkoutForm from "../components/WorkoutForm";
 
 function Home() {
   const { workouts, dispatch } = useWorkoutsContext();

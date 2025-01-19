@@ -3,8 +3,8 @@ const {
   createUser,
   login,
   logout,
-  // getWorkouts,
   authMiddleware,
+  checkAuthStatus,
 } = require("../controllers/userController.js");
 
 const router = express.Router();
@@ -19,6 +19,11 @@ router.post("/login", login);
 
 // GET Logout
 router.get("/logout", logout);
+
+// Check Login
+router.get("/auth/check", authMiddleware, (req, res) => {
+  res.status(200).json({ message: "Authorized", userId: req.userId });
+});
 
 // GET workout from userID
 // router.get("/:id/workouts", authMiddleware, getWorkouts);
