@@ -12,13 +12,13 @@ import SortingOptions from "../components/SortingOptions";
 function DashboardPage() {
   const navigate = useNavigate();
 
-  const { workouts, dispatch } = useWorkoutsContext();
+  const { workouts, dispatch, apiBaseUrl } = useWorkoutsContext();
   const { userId } = useParams();
   const [noWorkouts, setNoWorkouts] = useState(false);
 
   const handleSort = async (field, order) => {
     const response = await fetch(
-      `/api/workouts/user/${userId}?sortBy=${field}&order=${order}`
+      `${apiBaseUrl}/api/workouts/user/${userId}?sortBy=${field}&order=${order}`
     );
     const json = await response.json();
     if (response.ok) {

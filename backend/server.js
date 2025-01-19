@@ -3,6 +3,7 @@ require("dotenv").config();
 // middleware = code between getting req and sending res
 
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const workoutRoutes = require("./routes/workouts");
@@ -10,6 +11,25 @@ const userRoutes = require("./routes/users");
 
 // express app
 const app = express();
+
+const environment = process.env.NODE_ENV || "development";
+if (environment === "production") {
+  // Production environment (adjust this to your actual production domain)
+  app.use(
+    cors({
+      origin: "https://yourfrontenddomain.com", // Replace with your actual production frontend URL
+      credentials: true, // Include cookies if required
+    })
+  );
+} else {
+  // Development environment
+  app.use(
+    cors({
+      origin: "http://localhost:5173", // Allow requests from your local Vite dev server
+      credentials: true, // Include cookies if required
+    })
+  );
+}
 
 // do when every req is come in
 // middleware (.use)

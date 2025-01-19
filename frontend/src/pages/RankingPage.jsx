@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 function RankingPage() {
-  const { dispatch } = useWorkoutsContext();
+  const { dispatch, apiBaseUrl } = useWorkoutsContext();
   const [rankings, setRankings] = useState([]);
   const [rankingType, setRankingType] = useState("reps"); // Default to reps ranking
 
   const fetchRankings = async (type) => {
     const endpoint =
       type === "reps"
-        ? "/api/workouts/ranking/reps"
-        : "/api/workouts/ranking/load";
+        ? `${apiBaseUrl}/api/workouts/ranking/reps`
+        : `${apiBaseUrl}/api/workouts/ranking/load`;
     try {
       const response = await fetch(endpoint);
       const json = await response.json();

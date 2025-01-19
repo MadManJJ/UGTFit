@@ -6,11 +6,11 @@ import SortingOptions from "../components/SortingOptions";
 import WorkoutDetails from "../components/WorkoutDetails";
 
 function Home() {
-  const { workouts, dispatch } = useWorkoutsContext();
+  const { workouts, dispatch, apiBaseUrl } = useWorkoutsContext();
 
   const handleSort = async (field, order) => {
     const response = await fetch(
-      `/api/workouts?sortBy=${field}&order=${order}`
+      `${apiBaseUrl}/api/workouts?sortBy=${field}&order=${order}`
     );
     const json = await response.json();
     if (response.ok) {

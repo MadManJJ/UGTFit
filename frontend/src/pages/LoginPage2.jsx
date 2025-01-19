@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage2.module.css";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 const LoginPage2 = () => {
   const navigate = useNavigate();
+
+  const { apiBaseUrl } = useWorkoutsContext();
 
   const containerRef = useRef(null);
   const registerBtnRef = useRef(null);
@@ -37,7 +40,7 @@ const LoginPage2 = () => {
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/users/register", {
+      const response = await fetch(`${apiBaseUrl}/api/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +71,7 @@ const LoginPage2 = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/users/login", {
+      const response = await fetch(`${apiBaseUrl}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

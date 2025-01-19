@@ -1,15 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 function Navbar() {
   const location = useLocation();
+  const { apiBaseUrl } = useWorkoutsContext();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+    console.log(apiBaseUrl);
     const checkAuthStatus = async () => {
       try {
-        const response = await fetch("/api/users/auth/check", {
+        const response = await fetch(`${apiBaseUrl}/api/users/auth/check`, {
           method: "GET",
           credentials: "include", // Ensures cookies are sent
         });

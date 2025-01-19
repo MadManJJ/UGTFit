@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 function WorkoutForm({ userId }) {
-  const { dispatch } = useWorkoutsContext();
+  const { dispatch, apiBaseUrl } = useWorkoutsContext();
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
@@ -15,7 +15,7 @@ function WorkoutForm({ userId }) {
     const workout = { title, load, reps, userId };
     console.log("checking");
     // create new workout
-    const response = await fetch("/api/workouts", {
+    const response = await fetch(`${apiBaseUrl}/api/workouts`, {
       method: "POST",
       body: JSON.stringify(workout),
       headers: {
