@@ -107,8 +107,9 @@ function Navbar() {
               <h2>Workout Buddy</h2>
             </Link>
           </li>
-          <li>
-            {isLoggedIn && (
+
+          {isLoggedIn && (
+            <li>
               <Link
                 to={`/dashboard/${userId}`}
                 onClick={() => handleLinkClick(`/dashboard/${userId}`)}
@@ -116,8 +117,9 @@ function Navbar() {
                 <span className="button-bg"></span>
                 <h2>Dashboard</h2>
               </Link>
-            )}
-          </li>
+            </li>
+          )}
+
           <li>
             <Link to="/ranking" onClick={() => handleLinkClick("/ranking")}>
               <span className="button-bg"></span>
