@@ -13,7 +13,6 @@ function WorkoutForm({ userId }) {
     e.preventDefault(); // stop refreshing the page
 
     const workout = { title, load, reps, userId };
-    console.log("checking");
     // create new workout
     const response = await fetch(`${apiBaseUrl}/api/workouts`, {
       method: "POST",
@@ -23,7 +22,6 @@ function WorkoutForm({ userId }) {
       },
     });
     const json = await response.json(); // do this because our backend res.status(200).json(workout) mean it return a json
-    console.log("checking2");
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);

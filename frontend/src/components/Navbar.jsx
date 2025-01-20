@@ -38,7 +38,7 @@ function Navbar() {
   const handleLogout = async () => {
     setIsLoggedIn(false);
     try {
-      const response = await fetch("/api/users/logout");
+      const response = await fetch(`${apiBaseUrl}/api/users/logout`);
     } catch (error) {
       console.error("Error logging out:", error);
     }

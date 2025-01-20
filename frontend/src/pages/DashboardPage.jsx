@@ -28,13 +28,16 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch(`/api/workouts/user/${userId}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${apiBaseUrl}/api/workouts/user/${userId}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const json = await response.json(); // get an array of object
       if (response.ok) {
