@@ -18,6 +18,7 @@ function Navbar() {
         });
         const data = await response.json();
         if (response.ok) {
+          console.log("Authorized");
           setIsLoggedIn(true);
           setUserId(data.userId);
           console.log(data.userId);
