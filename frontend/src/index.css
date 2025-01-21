@@ -72,9 +72,9 @@ header {
   width: 100%;
 }
 header .container {
-  max-width: 1400px;
+  max-width: 70%;
   margin: 0 auto;
-  padding: 5px 20px;
+  padding: 0.3125em 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -142,6 +142,7 @@ header a:focus h2 {
 
 .pages {
   max-width: 1400px;
+  width: min(1400px, 100%);
   padding: 1rem;
   margin: 0 auto;
 }
@@ -155,27 +156,27 @@ header a:focus h2 {
 .workout-details {
   border: 1px solid var(--border);
   border-radius: 4px;
-  margin: 20px auto;
-  padding: 20px;
+  margin: 1.25rem auto;
+  padding: 1.25rem;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
 .workout-details h4 {
-  margin: 0 0 10px 0;
+  margin: 0 0 0.625rem 0;
   color: var(--text-color);
 }
 .workout-details p {
   margin: 0;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: #d6d0d0;
 }
 .workout-details span {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 0.625rem;
+  right: 0.625rem;
   cursor: pointer;
   background: #272626;
-  padding: 6px;
+  padding: 0.375rem;
   border-radius: 50%;
   color: #ffffff;
 }
@@ -223,6 +224,7 @@ input.error {
 .sorting-options {
   width: fit-content;
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
   /* background: #010101; */
