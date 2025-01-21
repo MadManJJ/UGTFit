@@ -60,7 +60,12 @@ const login = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, jwtSecret, {
       expiresIn: "1h",
     });
-    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      path: "/",
+    });
     return res
       .status(200)
       .json({ message: "Login successful", user, redirectUrl: "/dashboard" });
