@@ -148,7 +148,7 @@ function Navbar() {
             <li>
               <Link to="/login" onClick={() => handleLinkClick("/login")}>
                 <span className="button-bg"></span>
-                <h2>Login</h2>
+                <h2>Sing in / Sign up</h2>
               </Link>
             </li>
           )}

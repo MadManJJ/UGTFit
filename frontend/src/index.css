@@ -507,6 +507,9 @@ input.error {
   .navbar.show ~ #overlay {
     display: block;
   }
+  .rankings ul {
+    padding-left: unset;
+  }
 }
 
 .btn {
