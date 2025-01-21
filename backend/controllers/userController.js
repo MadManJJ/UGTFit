@@ -33,7 +33,9 @@ const createUser = async (req, res) => {
   try {
     // User is another model (schema) like post
     const user = await User.create({ email, password: hashPassword });
-    return res.status(201).json({ message: "User Created", user });
+    return res
+      .status(201)
+      .json({ message: "User Created", user, node_env: process.env.NODE_ENV });
   } catch (error) {
     if (error.code === 11000) {
       return res.status(409).json({

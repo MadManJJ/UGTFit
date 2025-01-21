@@ -51,6 +51,8 @@ const LoginPage2 = () => {
         }),
       });
       const data = await response.json();
+      console.log("data.node_env");
+      console.log(data.node_env);
       if (response.ok) {
         console.log("Registration successful");
         console.log(data.message);
