@@ -16,9 +16,8 @@ function Navbar() {
           method: "GET",
           credentials: "include", // Ensures cookies are sent
         });
-
+        const data = await response.json();
         if (response.ok) {
-          const data = await response.json();
           setIsLoggedIn(true);
           setUserId(data.userId);
           console.log(data.userId);
@@ -38,7 +37,15 @@ function Navbar() {
   const handleLogout = async () => {
     setIsLoggedIn(false);
     try {
-      const response = await fetch(`${apiBaseUrl}/api/users/logout`);
+      const response = await fetch(`${apiBaseUrl}/api/users/logout`, {
+        method: "GET",
+        credentials: "include", // Include cookies in the request
+      });
+      if (response.ok) {
+        console.log("Logout successful");
+      } else {
+        console.error("Logout failed");
+      }
     } catch (error) {
       console.error("Error logging out:", error);
     }

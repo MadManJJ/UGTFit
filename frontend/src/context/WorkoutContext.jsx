@@ -32,7 +32,7 @@ export const WorkoutsContextProvider = ({ children }) => {
       ? "https://ugtfit.up.railway.app"
       : "http://localhost:4000";
 
-  console.log(import.meta.env.MODE);
+  // console.log(import.meta.env.MODE);
   // dispatch ({type: "SET_WORKOUS", payload: [{}, {}]})
   // when we call the dispatch function, it will call the workoutsReducer
   return (

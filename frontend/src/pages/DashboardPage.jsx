@@ -18,16 +18,21 @@ function DashboardPage() {
 
   const handleSort = async (field, order) => {
     const response = await fetch(
-      `${apiBaseUrl}/api/workouts/user/${userId}?sortBy=${field}&order=${order}`
+      `${apiBaseUrl}/api/workouts/user/${userId}?sortBy=${field}&order=${order}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
     );
     const json = await response.json();
     if (response.ok) {
-      dispatch({ type: "SET_WORKOUTS", payload: json });
+      dispatch({ type: "SET_WORKOUTS", payload: json.workouts });
     }
   };
 
   useEffect(() => {
     const fetchWorkouts = async () => {
+      // console.log(userId);
       const response = await fetch(
         `${apiBaseUrl}/api/workouts/user/${userId}`,
         {
@@ -44,18 +49,22 @@ function DashboardPage() {
         dispatch({ type: "SET_WORKOUTS", payload: json.workouts });
       } else if (!response.ok) {
         console.log("Unauthorized access. Please log in again.");
+        console.log(json.message);
         alert("Unauthorized access. Please log in again.");
+        alert(json.error);
         navigate("/");
       }
       if (json.workouts.length == 0) {
+        // console.log("No workouts created by you yet.");
         setNoWorkouts(true);
       } else {
+        // console.log(json.workouts);
         setNoWorkouts(false);
       }
     };
 
     fetchWorkouts();
-  }, [dispatch, workouts]); // run only one (when the component first render) []
+  }, [dispatch]); // run only one (when the component first render) []
 
   return (
     <div className="pages">
@@ -74,7 +83,6 @@ function DashboardPage() {
         </div>
         <div className="sorting">
           <SortingOptions onSortChange={handleSort} />
-          <button>Log Out</button>
           <WorkoutForm userId={userId} />
         </div>
       </div>
