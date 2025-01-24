@@ -19,7 +19,7 @@ This is a **Workout Tracker** application built using **Node.js**, **Express**, 
 - **Workout Rankings**:
   - View rankings of users based on their total **reps** or **load**.
 
-- **Admin Dashboard**:
+- **Dashboard**:
   - Users can access a dashboard to manage their workouts.
   - Only authenticated users with a valid JWT token can access the dashboard.
 
